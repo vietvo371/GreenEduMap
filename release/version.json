@@ -1,0 +1,20 @@
+
+{
+  "version": "1.0.0",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 0,
+  "prerelease": false,
+  "buildMetadata": "",
+  "releaseDate": "2024-01-15T00:00:00Z",
+  "codeName": "Green Foundation",
+  "status": "stable",
+  "features": {
+    "frontend": true,
+    "backend": true,
+    "fiwareIntegration": true,
+    "aiAnalysis": true,
+    "openData": true,
+    "lod": true
+  }
+}

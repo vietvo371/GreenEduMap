@@ -1,0 +1,51 @@
+
+{
+  "name": "greenedumap",
+  "version": "1.0.0",
+  "description": "Smart City Open Data Platform connecting Education, Environment, and Energy",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn workspace frontend dev\" \"yarn workspace backend dev\"",
+    "build": "yarn workspace frontend build && yarn workspace backend build",
+    "start": "yarn workspace frontend start",
+    "test": "yarn workspace frontend test && yarn workspace backend test",
+    "test:backend": "yarn workspace backend test",
+    "test:frontend": "yarn workspace frontend test",
+    "lint": "yarn workspace frontend lint && yarn workspace backend lint",
+    "format": "yarn workspace frontend format && yarn workspace backend format",
+    "docker:up": "docker compose -f docker/docker-compose.yml up --build",
+    "docker:down": "docker compose -f docker/docker-compose.yml down",
+    "docker:logs": "docker compose -f docker/docker-compose.yml logs -f",
+    "seed:data": "python scripts/seed_air_quality.py",
+    "publish:lod": "python scripts/publish_to_orionld.py",
+    "init:db": "bash scripts/init_db.sh"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=3.6.0"
+  },
+  "license": "MIT",
+  "author": "GreenEduMap Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/greenedumap.git"
+  },
+  "keywords": [
+    "smart-city",
+    "open-data",
+    "environment",
+    "education",
+    "energy",
+    "ai",
+    "fiware",
+    "ngsi-ld",
+    "semantic-web"
+  ]
+}
