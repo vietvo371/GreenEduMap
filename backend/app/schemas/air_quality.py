@@ -1,69 +1,61 @@
 """Pydantic schemas for Air Quality API."""
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Optional
 
-
+# Air Quality Schemas
 class AirQualityBase(BaseModel):
-    """Base schema for air quality."""
-
     ward_name: str
-    district: Optional[str] = None
-    city: Optional[str] = "Hanoi"
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
+    lat: float
+    lng: float
     aqi: float
-    pm25: Optional[float] = None
-    pm10: Optional[float] = None
-    no2: Optional[float] = None
-    o3: Optional[float] = None
-    so2: Optional[float] = None
-    co: Optional[float] = None
-    data_source: Optional[str] = "OpenAQ"
-
+    pm25: float
+    pm10: float
+    no2: float
+    so2: float
+    co: float
 
 class AirQualityCreate(AirQualityBase):
-    """Schema for creating air quality record."""
     pass
 
-
-class AirQualityUpdate(BaseModel):
-    """Schema for updating air quality record."""
-
-    aqi: Optional[float] = None
-    pm25: Optional[float] = None
-    pm10: Optional[float] = None
-    no2: Optional[float] = None
-    o3: Optional[float] = None
-    so2: Optional[float] = None
-    co: Optional[float] = None
-
-
 class AirQualityResponse(AirQualityBase):
-    """Schema for air quality API response."""
-
     id: int
-    measurement_date: datetime
-    created_at: datetime
     updated_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
+# Weather Data Schemas
+class WeatherDataBase(BaseModel):
+    ward_name: str
+    lat: float
+    lng: float
+    temperature: float
+    humidity: float
+    wind_speed: float
 
-class AirQualityListResponse(BaseModel):
-    """Schema for air quality list response."""
+class WeatherDataResponse(WeatherDataBase):
+    id: int
+    updated_at: datetime
 
-    total: int
-    items: list[AirQualityResponse]
+    model_config = ConfigDict(from_attributes=True)
 
+# Energy Data Schemas
+class EnergyDataBase(BaseModel):
+    ward_name: str
+    lat: float
+    lng: float
+    solar_potential_kw: float
+    current_usage_kw: float
 
-class AQIAlert(BaseModel):
-    """Schema for AQI alert when pollution is high."""
+class EnergyDataResponse(EnergyDataBase):
+    id: int
+    updated_at: datetime
 
-    location: str
-    aqi_level: str  # "Good", "Moderate", "Unhealthy for Sensitive Groups", etc.
-    aqi_value: float
-    main_pollutant: str
-    recommendation: str
+    model_config = ConfigDict(from_attributes=True)
+
+# Combined response
+class EnvironmentDataResponse(BaseModel):
+    air_quality: list[AirQualityResponse]
+    weather_data: list[WeatherDataResponse]
+    energy_data: list[EnergyDataResponse]

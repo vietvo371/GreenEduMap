@@ -83,9 +83,6 @@ export function useDistributions(filters?: DistributionFilters) {
       }
       return res.json();
     },
-    onError: (err: Error) => {
-      showError(err.message);
-    },
   });
 }
 

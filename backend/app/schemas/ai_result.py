@@ -1,75 +1,40 @@
 """Pydantic schemas for AI Analysis API."""
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from typing import Optional, Any, Dict
+from typing import Optional
 
-
+# AI Analysis Schemas
 class AIAnalysisBase(BaseModel):
-    """Base AI analysis schema."""
-
-    analysis_type: str
-    title: Optional[str] = None
-    description: Optional[str] = None
-
-
-class CorrelationAnalysisRequest(AIAnalysisBase):
-    """Schema for correlation analysis request."""
-
-    env_values: list[float]
-    edu_scores: list[float]
-
-
-class CorrelationAnalysisResponse(BaseModel):
-    """Schema for correlation analysis response."""
-
-    correlation_coefficient: float
-    p_value: Optional[float] = None
-    slope: float
-    intercept: float
-    r_squared: float
-    interpretation: str
+    ward_name: str
+    corr_env_edu: float
+    corr_energy: float
     recommendation: str
 
+class AIAnalysisCreate(AIAnalysisBase):
+    pass
 
-class PredictionRequest(AIAnalysisBase):
-    """Schema for prediction request."""
-
-    features: Dict[str, Any]
-    model_name: Optional[str] = None
-
-
-class PredictionResponse(BaseModel):
-    """Schema for prediction response."""
-
-    predicted_value: float
-    confidence: float
-    model_version: str
-    explanation: str
-
-
-class AIAnalysisResultResponse(BaseModel):
-    """Schema for stored AI analysis result."""
-
+class AIAnalysisResponse(AIAnalysisBase):
     id: int
-    analysis_type: str
-    title: Optional[str]
-    correlation_coefficient: Optional[float]
-    model_accuracy: Optional[float]
-    predictions: Optional[Dict[str, Any]]
-    insights: Optional[Dict[str, Any]]
-    recommendation: Optional[str]
-    recommendation_priority: Optional[str]
-    status: str
+    timestamp: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+# Green Actions Schemas
+class GreenActionBase(BaseModel):
+    ward_name: str
+    action: str
+    impact_score: float
+
+class GreenActionCreate(GreenActionBase):
+    pass
+
+class GreenActionResponse(GreenActionBase):
+    id: int
     created_at: datetime
-    updated_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
-
-class AIAnalysisListResponse(BaseModel):
-    """Schema for AI analysis list response."""
-
-    total: int
-    items: list[AIAnalysisResultResponse]
+class AIInsightsResponse(BaseModel):
+    ai_analysis: list[AIAnalysisResponse]
+    green_actions: list[GreenActionResponse]

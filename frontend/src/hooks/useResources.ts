@@ -51,9 +51,6 @@ export function useResources(filters?: ResourceFilters) {
       }
       return res.json();
     },
-    onError: (err: Error) => {
-      showError(err.message);
-    },
   });
 }
 

@@ -41,9 +41,6 @@ export function useRequests(filters?: RequestFilters) {
       }
       return res.json();
     },
-    onError: (err: Error) => {
-      showError(err.message);
-    },
   });
 }
 

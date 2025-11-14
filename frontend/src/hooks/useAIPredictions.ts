@@ -33,8 +33,5 @@ export function useAIPredictions(tinhThanh?: string, generate?: boolean) {
       }
       return res.json();
     },
-    onError: (err: Error) => {
-      showError(err.message);
-    },
   });
 }

@@ -75,7 +75,7 @@ const MapLocationPicker: React.FC<MapLocationPickerProps> = ({
 
     mapInstance.addControl(new mapboxgl.NavigationControl());
 
-    const handleClick = (event: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
+    const handleClick = (event: mapboxgl.MapMouseEvent & any) => {
       if (!interactive) return;
       const coords = { lat: event.lngLat.lat, lng: event.lngLat.lng };
       if (!markerRef.current) {

@@ -4,11 +4,11 @@ from app.core.config import settings
 
 # Create database engine
 engine = create_engine(
-    settings.DATABASE_URL,
+    settings.database_url,
     echo=settings.debug,
     connect_args={
         "connect_timeout": 10,
-    } if "postgresql" in settings.DATABASE_URL else {}
+    } if "postgresql" in settings.database_url else {}
 )
 
 # Create session factory

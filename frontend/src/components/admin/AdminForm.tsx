@@ -136,7 +136,6 @@ export default function AdminForm({
 
         <div className="flex gap-3 pt-4">
           <Button
-            type="submit"
             disabled={isLoading}
             startIcon={isLoading ? undefined : <Save className="w-4 h-4" />}
             className="flex-1"
@@ -145,7 +144,6 @@ export default function AdminForm({
           </Button>
           {shouldShowCancelButton && (
             <Button
-              type="button"
               variant="outline"
               onClick={onCancel}
               startIcon={<X className="w-4 h-4" />}

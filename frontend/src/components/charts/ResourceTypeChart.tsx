@@ -17,7 +17,7 @@ interface ResourceTypeChartProps {
 export default function ResourceTypeChart({ data }: ResourceTypeChartProps) {
   const options: ApexOptions = {
     colors: [
-      "#3B82F6", "#8B5CF6", "#F59E0B", "#10B981", "#EF4444", 
+      "#3B82F6", "#8B5CF6", "#F59E0B", "#10B981", "#EF4444",
       "#06B6D4", "#84CC16", "#F97316", "#EC4899", "#6366F1"
     ],
     chart: {
@@ -78,9 +78,7 @@ export default function ResourceTypeChart({ data }: ResourceTypeChartProps) {
         colors: "#6B7280",
       },
       markers: {
-        width: 8,
-        height: 8,
-        radius: 4,
+        size: 8,
       },
     },
     tooltip: {

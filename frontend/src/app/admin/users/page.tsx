@@ -10,7 +10,7 @@ import AdminDataTable from "@/components/admin/AdminDataTable";
 import AdminModal from "@/components/admin/AdminModal";
 import AdminLoading from "@/components/admin/AdminLoading";
 import AdminEmptyState from "@/components/admin/AdminEmptyState";
-import Badge from "@/components/ui/badge/Badge";
+import Badge, { type BadgeColor } from "@/components/ui/badge/Badge";
 import Button from "@/components/ui/button/Button";
 
 const roleLabels: Record<string, string> = {
@@ -19,7 +19,7 @@ const roleLabels: Record<string, string> = {
   nguoi_dan: "Người dân",
 };
 
-const roleColors: Record<string, string> = {
+const roleColors: Record<string, BadgeColor> = {
   admin: "error",
   tinh_nguyen_vien: "success",
   nguoi_dan: "info",
@@ -31,7 +31,7 @@ export default function AdminUsersPage() {
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
   const { data, isLoading } = useUsers(roleFilter !== "all" ? roleFilter : undefined);
-  const users = useMemo(() => (data?.users || []) as AdminUser[], [data]);
+  const users = useMemo(() => ((data as any)?.user || []) as AdminUser[], [data]);
 
   const filteredUsers = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();

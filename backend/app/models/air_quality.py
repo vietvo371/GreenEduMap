@@ -1,38 +1,49 @@
-"""Air Quality model for storing air quality measurements."""
+"""Air Quality model for storing environmental data."""
 
-from sqlalchemy import Column, Integer, String, Float, DateTime, JSON
+from sqlalchemy import Column, Integer, String, Float, DateTime
 from datetime import datetime
-from app.db.base import Base
+from app.db import Base
 
 
 class AirQuality(Base):
-    """Air Quality monitoring data model."""
-
+    """Air Quality Data Model"""
     __tablename__ = "air_quality"
 
     id = Column(Integer, primary_key=True, index=True)
-
-    # Location information
-    ward_name = Column(String(255), nullable=False)
-    district = Column(String(255))
-    city = Column(String(255), default="Hanoi")
-    latitude = Column(Float)
-    longitude = Column(Float)
-
-    # Air quality measurements
-    aqi = Column(Float, nullable=False)  # Air Quality Index
-    pm25 = Column(Float)  # PM2.5
-    pm10 = Column(Float)  # PM10
-    no2 = Column(Float)   # Nitrogen Dioxide
-    o3 = Column(Float)    # Ozone
-    so2 = Column(Float)   # Sulfur Dioxide
-    co = Column(Float)    # Carbon Monoxide
-
-    # Additional data
-    data_source = Column(String(100), default="OpenAQ")
-    measurement_date = Column(DateTime, default=datetime.utcnow)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    ward_name = Column(String, index=True)
+    lat = Column(Float)
+    lng = Column(Float)
+    aqi = Column(Float)
+    pm25 = Column(Float)
+    pm10 = Column(Float)
+    no2 = Column(Float)
+    so2 = Column(Float)
+    co = Column(Float)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Metadata
-    metadata = Column(JSON, nullable=True)
+
+class WeatherData(Base):
+    """Weather Data Model"""
+    __tablename__ = "weather_data"
+
+    id = Column(Integer, primary_key=True, index=True)
+    ward_name = Column(String, index=True)
+    lat = Column(Float)
+    lng = Column(Float)
+    temperature = Column(Float)
+    humidity = Column(Float)
+    wind_speed = Column(Float)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class EnergyData(Base):
+    """Energy Data Model"""
+    __tablename__ = "energy_data"
+
+    id = Column(Integer, primary_key=True, index=True)
+    ward_name = Column(String, index=True)
+    lat = Column(Float)
+    lng = Column(Float)
+    solar_potential_kw = Column(Float)
+    current_usage_kw = Column(Float)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

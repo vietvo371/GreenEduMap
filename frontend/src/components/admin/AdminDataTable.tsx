@@ -115,7 +115,7 @@ export default function AdminDataTable({
               {isLoading ? (
                 <TableRow>
                   <TableCell
-                    colSpan={columns.length}
+                    colSpan={columns.length as unknown as number}
                     className="px-6 py-12 text-center"
                   >
                     <AdminLoading variant="section" label="Đang tải bảng dữ liệu..." />
@@ -124,7 +124,7 @@ export default function AdminDataTable({
               ) : data.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={columns.length}
+                    colSpan={columns.length as unknown as number}
                     className="px-6 py-12"
                   >
                     <AdminEmptyState

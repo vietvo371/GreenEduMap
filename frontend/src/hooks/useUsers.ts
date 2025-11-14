@@ -29,8 +29,5 @@ export function useUsers(role?: string) {
       }
       return res.json();
     },
-    onError: (err: Error) => {
-      showError(err.message);
-    },
   });
 }

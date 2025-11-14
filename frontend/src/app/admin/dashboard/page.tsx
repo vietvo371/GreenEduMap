@@ -24,11 +24,11 @@ import {
   getPriorityColor,
   getDistributionStatusColor,
 } from "@/lib/translations";
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  AlertTriangle, 
-  CheckCircle, 
+import {
+  TrendingUp,
+  TrendingDown,
+  AlertTriangle,
+  CheckCircle,
   Clock,
   MapPin,
   Users,
@@ -49,12 +49,12 @@ export default function DashboardPage() {
     return <AdminLoading variant="page" label="Đang tải dữ liệu tổng quan..." />;
   }
 
-  const requests = requestsData?.requests || [];
-  const resources = resourcesData?.resources || [];
-  const distributions = distributionsData?.distributions || [];
+  const requests = (requestsData as any)?.request || [];
+  const resources = (resourcesData as any)?.resource || [];
+  const distributions = (distributionsData as any)?.distribution || [];
   const centers = (centersData as any)?.centers || [];
-  const users = usersData?.users || [];
-  const predictions = aiData?.predictions || [];
+  const users = (usersData as any)?.user || [];
+  const predictions = (aiData as any)?.predictions || [];
 
   // Calculate comprehensive stats
   const stats = {
@@ -110,7 +110,7 @@ export default function DashboardPage() {
   const resourceTypes = [...new Set(resources.map((r: any) => r.loai))];
   const resourceData = {
     categories: resourceTypes,
-    data: resourceTypes.map(type => 
+    data: resourceTypes.map(type =>
       resources.filter((r: any) => r.loai === type).length
     )
   };
@@ -215,7 +215,7 @@ export default function DashboardPage() {
                   <p className="font-medium text-gray-900 dark:text-white">{request.loai_yeu_cau}</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">{request.so_nguoi} người</p>
                 </div>
-                <Badge 
+                <Badge
                   color={getPriorityColor(request.do_uu_tien)}
                   size="sm"
                 >
@@ -274,7 +274,7 @@ export default function DashboardPage() {
                     {dist.tinh_nguyen_vien?.ho_va_ten || "N/A"}
                   </td>
                   <td className="py-3 px-4">
-                    <Badge 
+                    <Badge
                       color={getDistributionStatusColor(dist.trang_thai)}
                       size="sm"
                     >

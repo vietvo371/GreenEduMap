@@ -1,5 +1,3 @@
-"""API endpoints module."""
+from app.api.endpoints import environment, education, user, ai
 
-from app.api.endpoints import air_quality, ai_analysis
-
-__all__ = ["air_quality", "ai_analysis"]
+__all__ = ["environment", "education", "user", "ai"]

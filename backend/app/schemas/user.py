@@ -1,57 +1,37 @@
 """Pydantic schemas for User API."""
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from datetime import datetime
 from typing import Optional
 
-
+# User Schemas
 class UserBase(BaseModel):
-    """Base user schema."""
-
-    username: str
+    full_name: str
     email: EmailStr
-    full_name: Optional[str] = None
-
+    role: str  # citizen, school, admin
 
 class UserCreate(UserBase):
-    """Schema for user registration."""
-
     password: str
-
-
-class UserLogin(BaseModel):
-    """Schema for user login."""
-
-    email: EmailStr
-    password: str
-
-
-class UserUpdate(BaseModel):
-    """Schema for user profile update."""
-
-    full_name: Optional[str] = None
-    phone: Optional[str] = None
-    avatar_url: Optional[str] = None
-
 
 class UserResponse(UserBase):
-    """Schema for user API response."""
-
     id: int
-    is_active: bool
-    is_verified: bool
-    is_admin: bool
-    role: str
+    avatar_url: Optional[str] = None
     created_at: datetime
-    last_login: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
+# Citizen Feedback Schemas
+class FeedbackBase(BaseModel):
+    ward_name: str
+    message: str
+    image_url: Optional[str] = None
 
-class TokenResponse(BaseModel):
-    """Schema for authentication token response."""
+class FeedbackCreate(FeedbackBase):
+    user_id: int
 
-    access_token: str
-    token_type: str
-    user: UserResponse
+class FeedbackResponse(FeedbackBase):
+    id: int
+    user_id: int
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

@@ -1,39 +1,30 @@
 """User model for authentication and profile management."""
 
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, JSON
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from datetime import datetime
-from app.db.base import Base
+from app.db import Base
 
 
 class User(Base):
-    """User model for authentication."""
-
+    """User Model"""
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-
-    # Authentication
-    email = Column(String(255), unique=True, index=True, nullable=False)
-    username = Column(String(100), unique=True, index=True, nullable=False)
-    hashed_password = Column(String(255), nullable=False)
-
-    # Profile
-    full_name = Column(String(255))
-    phone = Column(String(20))
-    avatar_url = Column(String(500))
-
-    # Status
-    is_active = Column(Boolean, default=True)
-    is_verified = Column(Boolean, default=False)
-    is_admin = Column(Boolean, default=False)
-
-    # Role
-    role = Column(String(50), default="user")  # user, educator, admin
-
-    # Dates
+    full_name = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
+    password_hash = Column(String)
+    role = Column(String)  # citizen, school, admin
+    avatar_url = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    last_login = Column(DateTime, nullable=True)
 
-    # Metadata
-    metadata = Column(JSON, nullable=True)
+class CitizenFeedback(Base):
+    """Citizen Feedback Model"""
+    __tablename__ = "citizen_feedback"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True)
+    ward_name = Column(String)
+    message = Column(Text)
+    image_url = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+

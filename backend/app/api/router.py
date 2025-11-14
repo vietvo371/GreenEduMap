@@ -1,10 +1,10 @@
 """Main API Router."""
 
 from fastapi import APIRouter
-from app.api.endpoints import air_quality, ai_analysis
+from app.api.endpoints import environment, education, user, ai
 
 api_router = APIRouter()
-
-# Include endpoint routers
-api_router.include_router(air_quality.router)
-api_router.include_router(ai_analysis.router)
+api_router.include_router(environment.router)
+api_router.include_router(education.router)
+api_router.include_router(user.router)
+api_router.include_router(ai.router)

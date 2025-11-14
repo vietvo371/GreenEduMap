@@ -2,6 +2,8 @@
  * Utility functions for translating status values to Vietnamese
  */
 
+type BadgeColor = "error" | "warning" | "info" | "success" | "light";
+
 /**
  * Translate priority level to Vietnamese
  */
@@ -47,7 +49,7 @@ export function translateDistributionStatus(status: string): string {
 /**
  * Get color for priority badge
  */
-export function getPriorityColor(priority: string): string {
+export function getPriorityColor(priority: string): BadgeColor {
   if (priority === "cao" || priority === "high") return "error";
   if (priority === "trung_binh" || priority === "medium") return "warning";
   return "info";
@@ -56,7 +58,7 @@ export function getPriorityColor(priority: string): string {
 /**
  * Get color for request status badge
  */
-export function getRequestStatusColor(status: string): string {
+export function getRequestStatusColor(status: string): BadgeColor {
   if (status === "hoan_thanh") return "success";
   if (status === "dang_xu_ly") return "warning";
   if (status === "huy_bo") return "error";
@@ -66,7 +68,7 @@ export function getRequestStatusColor(status: string): string {
 /**
  * Get color for distribution status badge
  */
-export function getDistributionStatusColor(status: string): string {
+export function getDistributionStatusColor(status: string): BadgeColor {
   if (status === "hoan_thanh") return "success";
   if (status === "dang_giao") return "warning";
   if (status === "dang_van_chuyen") return "info";
